@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    <script src="main.js"></script>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+
+</head>
+
+<body>
+
+        <div class="card border-success mb-3" style="max-width: 18rem;">
+                <div class="card-header bg-transparent border-success"> <div id="Header"> </div></div>
+                <div class="card-body text-success">
+                  <h5 class="card-title">Pick your answer</h5>
+                  <div class="custom-control custom-radio">
+                        <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input">
+                        <label class="custom-control-label" for="customRadio1"><div id="Toggleone"></div></label>
+                      </div>
+                      <div class="custom-control custom-radio">
+                        <input type="radio" id="customRadio2" name="customRadio" class="custom-control-input">
+                        <label class="custom-control-label" for="customRadio2"><div id="Toggletwo"></div></label>
+                      </div>
+                      <div class="custom-control custom-radio">
+                            <input type="radio" id="customRadio3" name="customRadio" class="custom-control-input">
+                            <label class="custom-control-label" for="customRadio3"><div id="Togglethree"></div></label>
+                          </div>
+                   
+                </div>
+                <div class="card-footer bg-transparent border-success"> Seconds <div id="show-number"></div></div>
+              </div>
+               
+             
+                     
+                   <h1>You have total wins <div id="totalwins"></div> </h1>    
+                     
+                  
+ 
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script type="text/javascript">
+           
+// general variables
+
+var win=0
+var lost=0
+var inumber=0
+var number = 10;
+var intervalId;
+
+
+
+          $.ajax({
+
+              
+            url: "https://opentdb.com/api.php?amount=15&category=18&difficulty=easy&type=multiple",
+            method: "GET"
+          }).then(function(response) {
+            console.log(response);
+            // this obviouse doesn fly console.log(response.results.question)
+ 
+            // the question array is a property of the response object
+
+
+function supperdupper(){
+            
+    function run() {
+      clearInterval(intervalId);
+      intervalId = setInterval(decrement, 1000);
+    }
+
+
+    function decrement() {
+      number--;
+      $("#show-number").html("<h2>" + number + "</h2>");
+
+      if (number === 0) {
+        stop();
+        ;
+      }
+    }
+
+     function stop() {
+ 
+ clearInterval(intervalId);
+}
+
+run(); 
+ 
+
+function nextlevelrequest(){  
+            questions = response.results[inumber].question;
+            corectanswer = response.results[inumber].correct_answer;
+            badanswerone = response.results[inumber].incorrect_answers[0];
+            badanswertwo = response.results[inumber].incorrect_answers[1]
+            badanswerthree = response.results[inumber].incorrect_answers[2]
+
+            console.log ("iwas here");
+            console.log (inumber)
+}
+nextlevelrequest()
+
+            console.log(questions);
+            console.log(corectanswer);
+            console.log(badanswerone)
+            console.log(badanswertwo)
+            console.log(badanswerthree)
+
+            // random distribution of answer
+
+            var randomchoice= Math.floor(Math.random()* 3+1);
+
+            // give all buttom variable a false answer
+            
+            var buttonone = badanswerone
+            var buttontwo = badanswertwo
+            var buttonthree = badanswerthree
+            
+            // give one of them the right answer use randomchoice variable
+
+            if (randomchoice===1){ buttonone=corectanswer}
+            if (randomchoice===2){ buttontwo=corectanswer}
+            if (randomchoice===3){ buttonthree=corectanswer}
+            
+            console.log (randomchoice);
+
+            console.log (buttonone);
+            console.log (buttontwo);
+            console.log (buttonthree);
+            
+            // print it to website 
+
+             $("#Header").html(questions);
+             $("#Toggleone").html(buttonone);
+             $("#Toggletwo").html(buttontwo);
+             $("#Togglethree").html(buttonthree);
+
+            // now some logic which has to be later behind the end of the time loop  
+
+
+var windowTimeout = setTimeout(function() {
+         
+       
+
+             var x = document.getElementById("customRadio1").checked;
+             var y = document.getElementById("customRadio2").checked;
+             var z = document.getElementById("customRadio3").checked;
+               
+             console.log(x,"  ",y,"    ",z)
+
+            if (x == true && randomchoice === 1) { 
+                console.log ("you won");
+                win=win+1;
+                inumber=inumber+1;
+                }
+
+            if (y == true && randomchoice === 2) { 
+                console.log ("you won");
+                win=win+1;
+                inumber=inumber+1;
+                }
+
+            if (z == true && randomchoice === 3) { 
+                console.log ("you won");
+                win=win+2;
+                inumber=inumber+1;
+                }
+                $("#totalwins").html("<h2>" + win + "</h2>");
+
+ inumber=inumber+1;
+
+ if (inumber !== 15) {
+    console.log("why you are not showing up"+inumber);
+    nextlevelrequest();
+    number = 10-win;
+    supperdupper();
+    
+    }
+
+}, 12000-win);
+
+
+            }
+
+ 
+
+    
+    supperdupper();
+
+console.log (inumber+" next i");
+          });
+        </script>
+    
+     
+</body>
+</html>)
